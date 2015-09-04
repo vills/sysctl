@@ -40,11 +40,12 @@ if Sysctl.config_file(node)
   end
 
   # this is called by the sysctl::apply recipe to trigger template creation
+  apply_notify_timer = node['sysctl']['delayed_apply'] ? :delayed : :immediately
   ruby_block 'apply-sysctl-params' do
     action :nothing
     block do
     end
-    notifies :create, "template[#{Sysctl.config_file(node)}]", :immediately
+    notifies :create, "template[#{Sysctl.config_file(node)}]", apply_notify_timer
   end
 
   # this needs to have an action in case node.sysctl.params has changed

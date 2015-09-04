@@ -32,3 +32,5 @@ if platform_family?('debian', 'rhel', 'fedora')
 else
   default['sysctl']['conf_dir'] = nil
 end
+
+default['sysctl']['delayed_apply'] = false
